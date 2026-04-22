@@ -2,7 +2,7 @@
 //                       Name:                  ID:
 // (Member 1) -->    Faris Munadhil          U23104246
 // (Member 2) -->    Hydyr Babamuradov       U22200809
-// (Member 3) -->
+// (Member 3) -->    Muhammad Azhar          U23102421
 // (Member 4) -->
 // (Member 5) -->
 
@@ -53,10 +53,23 @@ void replacePage(int frames[], int framesCount, int &fifoPointer, int &filledFra
 }
     
     // ----- Member 3 : Page Fault Detection -----
-
+        bool isPageFault(int frames[], int framesCount, int targetPage) 
+{
+    for (int i = 0; i < framesCount; i++) 
+    {
+       
+        if (frames[i] == targetPage) 
+        {
+            return false; 
+        }
+    }
+    
+    return true; 
+}
     // ----- Member 4 : Simulation Loop -----
 
     // ----- Member 5 : Output Formatting -----
 
+    
     return 0;
 }
