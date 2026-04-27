@@ -7,6 +7,7 @@
 // (Member 5) -->
 
 #include <iostream>
+#include <iomanip>
 using namespace std;
 
 // ----- Member 2 : FIFO Core Logic (Pointer) -----
@@ -79,7 +80,54 @@ int main(){
     }
 
     // ----- Member 5 : Output Formatting -----
+        cout << "\n===== FIFO Page Replacement Simulation =====" << endl;
+        cout << "Reference String: ";
+    for (int i = 0; i < 12; i++) {
+        cout << referenceString[i];
+    if (i < 11) cout << " -> ";
+    }
+        cout << "\nNumber of Frames : " << framesCount << endl;
+        cout << "\n--------------------------------------------" << endl;
+        cout << left << setw(8) << "Step"
+        << setw(8) << "Page"
+        << setw(20) << "Frames"
+        << "Result" << endl;
+        cout << "--------------------------------------------" << endl;
+        
+    // Re-run simulation to print step-by-step output
+    // Reset state for display
+         int frames2[100], fifoPointer2 = 0, filledFrames2 = 0;
+    for (int i = 0; i < framesCount; i++) frames2[i] = -1;
 
+    for (int i = 0; i < 12; i++) {
+         int currentPage = referenceString[i];
+    bool fault = isPageFault(frames2, framesCount, currentPage);
+
+    if (fault) replacePage(frames2, framesCount, fifoPointer2, filledFrames2, currentPage);
+
+    // Print step number and current page
+    cout << left << setw(8) << (i + 1)
+         << setw(8) << currentPage;
+
+    // Print current frame state
+    string frameState = "[ ";
+    for (int j = 0; j < framesCount; j++) {
+        if (frames2[j] == -1)
+            frameState += "- ";
+        else
+            frameState += to_string(frames2[j]) + " ";
+    }
+    frameState += "]";
+    cout << setw(20) << frameState;
+
+    // Print hit or fault
+    cout << (fault ? "PAGE FAULT" : "Hit") << endl;
+}
+
+    cout << "--------------------------------------------" << endl;
+    cout << "Total Page Faults : " << pageFaults << endl;
+    cout << "Total Page Hits   : " << (12 - pageFaults) << endl;
+    cout << "============================================" << endl;
 
     return 0;
 }
